@@ -1,62 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Video Grid</title>
 
 <style>
 body {
   margin: 0;
   background: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
-  width: 95vw;
-  max-width: 1200px;
+  padding: 6px;
 }
 
-.cell {
-  position: relative;
-  background: #111;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.cell video {
+video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.cell.playing video {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.cell::after {
-  content: "▶";
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 48px;
-  color: rgba(255,255,255,0.6);
-}
-
-.cell.playing::after {
-  display: none;
+  height: auto;
+  background: #000;
 }
 </style>
 </head>
@@ -64,39 +29,13 @@ body {
 <body>
 
 <div class="grid">
-  <div class="cell"><video src="clip1.mp4" muted playsinline loop preload="auto"></video></div>
-  <div class="cell"><video src="clip2.mp4" muted playsinline loop preload="auto"></video></div>
-  <div class="cell"><video src="clip3.mp4" muted playsinline loop preload="auto"></video></div>
-  <div class="cell"><video src="clip4.mp4" muted playsinline loop preload="auto"></video></div>
-  <div class="cell"><video src="clip5.mp4" muted playsinline loop preload="auto"></video></div>
-  <div class="cell"><video src="clip6.mp4" muted playsinline loop preload="auto"></video></div>
+  <video src="clip1.mp4" muted loop playsinline controls></video>
+  <video src="clip2.mp4" muted loop playsinline controls></video>
+  <video src="clip3.mp4" muted loop playsinline controls></video>
+  <video src="clip4.mp4" muted loop playsinline controls></video>
+  <video src="clip5.mp4" muted loop playsinline controls></video>
+  <video src="clip6.mp4" muted loop playsinline controls></video>
 </div>
-
-<script>
-const cells = document.querySelectorAll('.cell');
-
-cells.forEach(cell => {
-  cell.addEventListener('click', () => {
-    cells.forEach(c => {
-      if (c !== cell) {
-        c.classList.remove('playing');
-        c.querySelector('video').pause();
-      }
-    });
-
-    const video = cell.querySelector('video');
-
-    if (video.paused) {
-      cell.classList.add('playing');
-      video.currentTime = 0;
-      video.play();
-    } else {
-      video.pause();
-      cell.classList.remove('playing');
-    }
-  });
-});
-</script>
 
 </body>
 </html>
