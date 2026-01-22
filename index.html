@@ -2,89 +2,34 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Video Loop Bank</title>
+<title>Video Test</title>
 
 <style>
 html, body {
   margin: 0;
-  padding: 0;
   width: 100%;
   height: 100%;
   background: black;
-  overflow: hidden;
-  cursor: pointer;
 }
 
 video {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: opacity 1.2s ease;
+  object-fit: contain;
 }
 </style>
 </head>
 
 <body>
 
-<script>
-const videos = [
-  'clip1.mp4',
-  'clip2.mp4',
-  'clip3.mp4',
-  'clip4.mp4',
-  'clip5.mp4',
-  'clip6.mp4'
-];
-
-let currentVideo = null;
-let audioUnlocked = false;   // ← line 1
-
-function randomClip(exclude) {
-  let choice;
-  do {
-    choice = videos[Math.floor(Math.random() * videos.length)];
-  } while (choice === exclude && videos.length > 1);
-  return choice;
-}
-
-function playNewVideo() {
-  const src = randomClip(currentVideo?.dataset.src);
-
-  const video = document.createElement('video');
-  video.src = src;
-  video.autoplay = true;
-  video.loop = true;
-  video.muted = !audioUnlocked;  // ← line 2
-  video.playsInline = true;
-  video.style.opacity = 0;
-  video.dataset.src = src;
-
-  document.body.appendChild(video);
-
-  requestAnimationFrame(() => {
-    video.style.opacity = 1;
-  });
-
-  if (currentVideo) {
-    currentVideo.style.opacity = 0;
-    setTimeout(() => currentVideo.remove(), 1200);
-  }
-
-  currentVideo = video;
-}
-
-// initial load (muted)
-playNewVideo();
-
-// click anywhere
-document.addEventListener('click', () => {
-  audioUnlocked = true;   // audio now allowed by browser
-  playNewVideo();
-});
-</script>
+<video
+  src="clip1.mp4"
+  controls
+  autoplay
+  muted
+  loop
+  playsinline>
+</video>
 
 </body>
 </html>
